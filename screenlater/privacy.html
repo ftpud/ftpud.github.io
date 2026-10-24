@@ -58,7 +58,7 @@
       <li>Identifiers of App Store notifications already processed.</li>
       <li>A hashed IP address used for rate limiting, deleted after about ten minutes.</li>
       <li>Content-free error logs (error codes and technical status, never your text, images, keys, purchase records or IP address), kept by Cloudflare for a few days.</li>
-      <li>Aggregate usage metrics (amounts, token counts, latency, error codes) without content or account identifiers, kept for about three months.</li>
+      <li>Usage metrics (amounts, token counts, latency, error codes) labelled only with a short one-way hash of the billing period, without content, account identifiers or IP addresses, kept for about three months.</li>
     </ul>
     <p>Billing and allowance records are kept for as long as needed to prevent the same purchase from being credited twice and to meet accounting obligations.</p>
 
