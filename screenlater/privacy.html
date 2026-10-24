@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Screenlater — Privacy Policy</title>
+  <link rel="icon" href="img/icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="top"><a href="./"><img src="img/icon.png" alt="">Screenlater</a></nav>
+
+  <div class="doc">
+    <h1>Privacy Policy</h1>
+    <p class="meta">Effective date: 25 October 2026</p>
+
+    <p>This policy explains how the Screenlater iPhone app (“Screenlater”, “the app”), developed by Dmitrijs Juskovs (“I”, “me”), handles your information. In short: by default your pictures and screen content are processed on your iPhone. Content leaves your device only when you choose a cloud translation option, and then only to translate it.</p>
+
+    <h2>What Screenlater does not do</h2>
+    <ul>
+      <li>No user accounts, email sign-in or profiles.</li>
+      <li>No advertising, third-party analytics or tracking SDKs, and no tracking across other companies’ apps or websites.</li>
+      <li>No selling or sharing of your data for advertising.</li>
+      <li>No translation history stored in the cloud. Your pictures, screen recordings and translated text are not saved on any server.</li>
+    </ul>
+
+    <h2>Translation options and where your content goes</h2>
+    <p>You choose the translation engine in Settings. New installations start with on-device text recognition and translation. Screenlater never switches to a cloud option on its own.</p>
+    <table>
+      <tr><th>Option</th><th>What is processed</th><th>Where</th></tr>
+      <tr><td>On-device translation (default)</td><td>Picture or screen content and recognized text</td><td>On your iPhone, using Apple’s built-in text recognition and Translation features. Language downloads are handled by iOS.</td></tr>
+      <tr><td>Apple Intelligence — on device</td><td>Recognized text and its layout context</td><td>On your iPhone.</td></tr>
+      <tr><td>OpenAI with your own API key</td><td>Recognized text and layout context, or — in “Whole image” mode — the picture or selected screen area</td><td>Sent directly from your iPhone to OpenAI using your key. I do not receive it. Your use is governed by your agreement with OpenAI and <a href="https://openai.com/policies/privacy-policy/">OpenAI’s privacy policy</a>.</td></tr>
+      <tr><td>Screenlater subscription translation (where offered)</td><td>Recognized text and layout context, or the picture/screen area in image mode</td><td>Sent through the Screenlater server (hosted on Cloudflare) to OpenAI for translation, then returned to your iPhone. Content is held only in memory while the request is processed and briefly to deliver the result; it is not stored or logged.</td></tr>
+    </table>
+    <p>Requests to OpenAI are made with response storage turned off. Cloudflare and OpenAI operate under their own privacy and data-retention policies (<a href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a>, <a href="https://openai.com/policies/privacy-policy/">OpenAI</a>), which may include limited retention for security and abuse monitoring.</p>
+
+    <h2>Live screen translation</h2>
+    <p>Live translation uses iOS screen broadcasting, which you start and confirm yourself. Captured frames are processed in memory to recognize and translate text. Recent screens and their translations are cached in memory during a session so unchanged screens are not translated again; this cache is discarded when the broadcast ends. A small preview image used by the floating window is kept temporarily in the app’s private storage on your device.</p>
+
+    <h2>Data stored on your iPhone</h2>
+    <ul>
+      <li>Your settings: languages, translation engine, capture mode and update options.</li>
+      <li>Your OpenAI API key, if you add one, stored in the iOS Keychain on this device only.</li>
+      <li>A local estimate of your OpenAI spending (amounts only, no content).</li>
+      <li>Your purchase status, cached securely so the app and its extensions can check access.</li>
+    </ul>
+    <p>This data stays on your device and is removed when you delete the app (Keychain items may persist until you remove them through iOS).</p>
+
+    <h2>Purchases</h2>
+    <p>Purchases, the free trial and subscriptions are processed by Apple through the App Store. I do not receive your name, Apple Account, payment details or contact information. If you use the Screenlater subscription service, the app sends Apple’s signed transaction record to the Screenlater server, which verifies it with Apple to apply your translation allowance.</p>
+
+    <h2>Data held by the Screenlater server (subscription service only)</h2>
+    <p>If you never use subscription translation, the server holds nothing about you. If you do, it stores only what is needed to run and bill the allowance:</p>
+    <ul>
+      <li>An account identifier derived by one-way hash from your App Store original transaction ID, plus subscription period dates and entitlement status.</li>
+      <li>Request identifiers, usage amounts (tokens and cost) and reservations, used to enforce your allowance and avoid charging twice.</li>
+      <li>Identifiers of App Store notifications already processed.</li>
+      <li>A hashed IP address used for rate limiting, deleted after about ten minutes.</li>
+      <li>Content-free error logs (error codes and technical status, never your text, images, keys, purchase records or IP address), kept by Cloudflare for a few days.</li>
+      <li>Aggregate usage metrics (amounts, token counts, latency, error codes) without content or account identifiers, kept for about three months.</li>
+    </ul>
+    <p>Billing and allowance records are kept for as long as needed to prevent the same purchase from being credited twice and to meet accounting obligations.</p>
+
+    <h2>Legal basis and your rights</h2>
+    <p>Where data protection laws such as the GDPR apply, processing for translation is based on your request to provide the service, and billing records on the performance of the contract and legal obligations. You can ask for access to, or deletion of, data associated with your subscription by emailing me; because no name or email is stored, please include the date of your purchase so I can help identify the records. You may also contact your local data protection authority.</p>
+
+    <h2>Children</h2>
+    <p>Screenlater is not directed at children and does not knowingly collect personal information from them.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, the updated version will be posted on this page with a new effective date.</p>
+
+    <h2>Contact</h2>
+    <p>Dmitrijs Juskovs — <a href="mailto:dmitrijs.juskovs@gmail.com?subject=Screenlater%20privacy">dmitrijs.juskovs@gmail.com</a></p>
+  </div>
+
+  <footer>
+    <a href="./">Screenlater</a>
+    <a href="./#support">Support</a>
+    <p>© 2026 Dmitrijs Juskovs</p>
+  </footer>
+</body>
+</html>
