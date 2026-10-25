@@ -18,10 +18,10 @@
 
     <h2>What Screenlater does not do</h2>
     <ul>
-      <li>No user accounts, email sign-in or profiles.</li>
+      <li>No email sign-in or customer profiles. Managed translation uses a purchase-derived identifier to verify access and allowance.</li>
       <li>No advertising, third-party analytics or tracking SDKs, and no tracking across other companies’ apps or websites.</li>
       <li>No selling or sharing of your data for advertising.</li>
-      <li>No translation history stored in the cloud. Your pictures, screen recordings and translated text are not saved on any server.</li>
+      <li>No persistent translation history is stored in Screenlater’s billing database. Content is processed in memory and may be held briefly for delivery or stream recovery, as explained below. Cloud providers have their own retention policies.</li>
     </ul>
 
     <h2>Translation options and where your content goes</h2>
@@ -31,7 +31,7 @@
       <tr><td>On-device translation (default)</td><td>Picture or screen content and recognized text</td><td>On your iPhone, using Apple’s built-in text recognition and Translation features. Language downloads are handled by iOS.</td></tr>
       <tr><td>Apple Intelligence — on device</td><td>Recognized text and its layout context</td><td>On your iPhone.</td></tr>
       <tr><td>OpenAI with your own API key</td><td>Recognized text and layout context, or — in “Whole image” mode — the picture or selected screen area</td><td>Sent directly from your iPhone to OpenAI using your key. I do not receive it. Your use is governed by your agreement with OpenAI and <a href="https://openai.com/policies/privacy-policy/">OpenAI’s privacy policy</a>.</td></tr>
-      <tr><td>Screenlater subscription translation (where offered)</td><td>Recognized text and layout context, or the picture/screen area in image mode</td><td>Sent through the Screenlater server (hosted on Cloudflare) to OpenAI for translation, then returned to your iPhone. Content is held only in memory while the request is processed and briefly to deliver the result; it is not stored or logged.</td></tr>
+      <tr><td>Screenlater managed translation (subscription or trial allowance, where offered)</td><td>Recognized text and layout context, or the picture/screen area in image mode</td><td>Sent through the Screenlater server (hosted on Cloudflare) to OpenAI for translation, then returned to your iPhone. Screenlater does not write translation content to its billing database or error logs. Completed results may remain in server memory for up to five minutes for interrupted delivery. Where Cloudflare AI Gateway is used, streamed events may also remain available for a few minutes for stream recovery.</td></tr>
     </table>
     <p>Requests to OpenAI are made with response storage turned off. Cloudflare and OpenAI operate under their own privacy and data-retention policies (<a href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a>, <a href="https://openai.com/policies/privacy-policy/">OpenAI</a>), which may include limited retention for security and abuse monitoring.</p>
 
@@ -48,22 +48,22 @@
     <p>This data stays on your device and is removed when you delete the app (Keychain items may persist until you remove them through iOS).</p>
 
     <h2>Purchases</h2>
-    <p>Purchases, the free trial and subscriptions are processed by Apple through the App Store. I do not receive your name, Apple Account, payment details or contact information. If you use the Screenlater subscription service, the app sends Apple’s signed transaction record to the Screenlater server, which verifies it with Apple to apply your translation allowance.</p>
+    <p>Purchases, the free trial and subscriptions are processed by Apple through the App Store. I do not receive your name, Apple Account, payment details or contact information. When you request managed allowance verification or use managed translation with a subscription or the free trial, the app sends Apple’s signed transaction record to the Screenlater server. The server verifies it with Apple to apply your allowance. The trial allowance is granted once from the original verified trial purchase; restoring or reinstalling does not restart it. Starting the free trial never automatically purchases a paid subscription.</p>
 
-    <h2>Data held by the Screenlater server (subscription service only)</h2>
-    <p>If you never use subscription translation, the server holds nothing about you. If you do, it stores only what is needed to run and bill the allowance:</p>
+    <h2>Data held by the Screenlater server (managed service)</h2>
+    <p>The managed service stores records when it verifies a trial or subscription, processes allowance requests or receives related App Store notifications. On-device translation does not send your translation content to this service. Service records include:</p>
     <ul>
-      <li>An account identifier derived by one-way hash from your App Store original transaction ID, plus subscription period dates and entitlement status.</li>
-      <li>Request identifiers, usage amounts (tokens and cost) and reservations, used to enforce your allowance and avoid charging twice.</li>
+      <li>A purchase-derived account identifier, original App Store transaction identifier, verified trial or paid-period identifiers and dates, and entitlement status. Trial and subscription allowances are kept separately.</li>
+      <li>Request identifiers, request-content hashes, provider response or stream-run identifiers, usage amounts (tokens and cost), and reservations, used to enforce your allowance and avoid charging twice. Request-content hashes do not contain readable translation content.</li>
       <li>Identifiers of App Store notifications already processed.</li>
-      <li>A hashed IP address used for rate limiting, deleted after about ten minutes.</li>
+      <li>A hashed IP address used to limit session requests. Rows older than approximately ten minutes are removed when another session request reaches the limiter; there is no background deletion timer, so rows may remain longer during inactivity.</li>
       <li>Content-free error logs (error codes and technical status, never your text, images, keys, purchase records or IP address), kept by Cloudflare for a few days.</li>
-      <li>Usage metrics (amounts, token counts, latency, error codes) labelled only with a short one-way hash of the billing period, without content, account identifiers or IP addresses, kept for about three months.</li>
+      <li>Usage metrics (amounts, token counts, latency, operation type, allowance state and error codes) labelled with a short hash of the billing period, kept for about three months. They do not contain translation content or raw transaction identifiers. These metrics are pseudonymous, not anonymous: the period hash can be matched to a transaction period held in the billing ledger.</li>
     </ul>
-    <p>Billing and allowance records are kept for as long as needed to prevent the same purchase from being credited twice and to meet accounting obligations.</p>
+    <p>The current service has no automatic deletion schedule for financial and idempotency records, including allowance periods, request accounting and processed-notification identifiers. These records are currently retained indefinitely to preserve balances, prevent repeat grants and resolve billing issues. No shorter automatic deletion period is currently implemented.</p>
 
     <h2>Legal basis and your rights</h2>
-    <p>Where data protection laws such as the GDPR apply, processing for translation is based on your request to provide the service, and billing records on the performance of the contract and legal obligations. You can ask for access to, or deletion of, data associated with your subscription by emailing me; because no name or email is stored, please include the date of your purchase so I can help identify the records. You may also contact your local data protection authority.</p>
+    <p>Where data protection laws such as the GDPR apply, processing for translation is based on your request to provide the service, and billing records on the performance of the contract and legal obligations. You can ask for access to, or deletion of, data associated with your managed trial or subscription by emailing me. Because no name or email is stored in the ledger, include the product and approximate purchase date to start the request. Those details alone do not establish ownership; further verification may be needed. Do not email API keys, signed purchase records or private keys. There is currently no automatic deletion flow. Any records that must be retained for an applicable legal obligation or to prevent duplicate credits will be explained when handling your request. You may also contact your local data protection authority.</p>
 
     <h2>Children</h2>
     <p>Screenlater is not directed at children and does not knowingly collect personal information from them.</p>
